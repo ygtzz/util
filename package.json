@@ -1,4 +1,7 @@
 {
+  "scripts": {
+    "build":"gulp"
+  },
   "devDependencies": {
     "gulp": "^3.9.1",
     "gulp-umd": "^0.2.0"
