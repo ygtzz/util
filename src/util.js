@@ -1,6 +1,6 @@
 var oUtil = {};
 
-oUtil.String = {
+oUtil.s = {
     fStartWith: function(sSrc, str) {
         var reg = new RegExp("^" + str);
         return reg.test(this);
@@ -90,7 +90,7 @@ oUtil.String = {
     }
 }
 
-oUtil.Date = {
+oUtil.d = {
     /*
      * 对Date的扩展，将 Date 转化为指定格式的String 
      * 月(M)、日(d)、小时(h)、分(m)、秒(s)、季度(q) 可以用 1-2 个占位符， 
@@ -102,18 +102,18 @@ oUtil.Date = {
      * var time1 = new Date().format("yyyy-MM-dd HH:mm:ss"); 
      * var time2 = new Date().format("yyyy-MM-dd");
      */
-    format: function(sSrc, fmt) {
+    format: function(oDate, fmt) {
         var o = {
-            "M+": this.getMonth() + 1, //月份 
-            "d+": this.getDate(), //日 
-            "h+": this.getHours(), //小时 
-            "m+": this.getMinutes(), //分 
-            "s+": this.getSeconds(), //秒 
-            "q+": Math.floor((this.getMonth() + 3) / 3), //季度 
-            "S": this.getMilliseconds() //毫秒 
+            "M+": oDate.getMonth() + 1, //月份 
+            "d+": oDate.getDate(), //日 
+            "h+": oDate.getHours(), //小时 
+            "m+": oDate.getMinutes(), //分 
+            "s+": oDate.getSeconds(), //秒 
+            "q+": Math.floor((oDate.getMonth() + 3) / 3), //季度 
+            "S": oDate.getMilliseconds() //毫秒 
         };
         if (/(y+)/.test(fmt)) {
-            fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
+            fmt = fmt.replace(RegExp.$1, (oDate.getFullYear() + "").substr(4 - RegExp.$1.length));
         }
         for (var k in o) {
             if (new RegExp("(" + k + ")").test(fmt)) {

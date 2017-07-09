@@ -1,9 +1,10 @@
 {
-  "scripts":{
+  "scripts": {
     "build": "gulp"
   },
   "devDependencies": {
     "gulp": "^3.9.1",
-    "gulp-umd": "^0.2.0"
+    "gulp-umd": "^0.2.0",
+    "wind-dom": "^0.0.3"
   }
 }
