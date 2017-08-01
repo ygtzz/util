@@ -422,6 +422,42 @@
 	    qs = qs.slice(qs.indexOf('?') + 1);
 	    return (result = qs.match(reg)) == null ? null : result[1];
 	}
+	//判断元素是否在视口内
+	function isElementInViewport(el, offset) {
+	    var h = offset || 20,
+	        box = el.getBoundingClientRect(),
+	        top = box.top >= 0,
+	        left = box.left >= 0,
+	        bottom = box.bottom <= (window.innerHeight || document.documentElement.clientHeight) + h,
+	        right = box.right <= (window.innerWidth || document.documentElement.clientWidth) + h;
+	    return top && left && bottom && right;
+	}
+	//更新单个url参数，有则修改，无则添加
+	function updateUrlParam(url, name, value) {
+	    var r = url;
+	    if (r != null && r != 'undefined' && r != "") {
+	        value = encodeURIComponent(value);
+	        var reg = new RegExp("(^|)" + name + "=([^&]*)(|$)");
+	        var tmp = name + "=" + value;
+	        if (url.match(reg) != null) {
+	            r = url.replace(eval(reg), tmp);
+	        } else {
+	            if (url.match("[\?]")) {
+	                r = url + "&" + tmp;
+	            } else {
+	                r = url + "?" + tmp;
+	            }
+	        }
+	    }
+	    return r;
+	}
+	//更新多个url参数，有则修改，无则添加
+	function updateUrlParams(url, obj) {
+	    for (var p in obj) {
+	        url = updateUrlParam(url, p, obj[p]);
+	    }
+	    return url;
+	}
 	
 	module.exports = {
 	    formatStr: formatStr,
@@ -429,7 +465,9 @@
 	    formatDate: formatDate,
 	    filterHtml: filterHtml,
 	    queryString: queryString,
-	    queryStringAll: queryStringAll
+	    queryStringAll: queryStringAll,
+	    isElementInViewport: isElementInViewport,
+	    updateUrlParams: updateUrlParams
 	};
 
 /***/ })
