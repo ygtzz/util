@@ -1,4 +1,12 @@
-
+/*比较两个array，是否相等*/
+function arrayEqual(arr1, arr2) {
+    if (arr1 === arr2) return true;
+    if (arr1.length != arr2.length) return false;
+    for (var i = 0; i < arr1.length; ++i) {
+        if (arr1[i] !== arr2[i]) return false;
+    }
+    return true;
+}
 /*
  * var a = "I Love {0}, and You Love {1},Where are {0}! {4}";
  * String.format(a, "You","Me");
