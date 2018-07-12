@@ -172,6 +172,21 @@ function locationReplace(url){
         location.replace(url);
     }
 }
+/**
+ * 目标数据超出范围就取对应的下限或上限
+ * @param {Number} mid 目标数据 
+ * @param {Number} min 数据下限
+ * @param {Number} max 数据上限
+ */
+function mid(mid,min,max){
+    if(typeof min === undefined || min == null){
+        min = Number.NEGATIVE_INFINITY;
+    }
+    if(typeof max == undefined || max == null){
+        max = Number.POSITIVE_INFINITY;
+    }
+    return Math.min(Math.max(min,mid),max);
+}
 
 module.exports = {
     formatStr:formatStr,
