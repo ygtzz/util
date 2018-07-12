@@ -163,7 +163,7 @@ function updateUrlParams(url, obj) {
  * 修复location.replace兼容问题
  * @param {String} url 
  */
-export function locationReplace(url){
+function locationReplace(url){
     if(history.replaceState){
         history.replaceState(null, document.title, url);
         history.go(0);

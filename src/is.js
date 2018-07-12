@@ -53,6 +53,18 @@
     is.isDocument = function(obj) {
         return obj != null && obj.nodeType == obj.DOCUMENT_NODE;
     };
+    /**
+     * 判断是否是JSON格式的字符串
+     * @param {String} str 需要判断的字符串
+     */
+    function isJsonString(str) {
+        try {
+            if (typeof JSON.parse(str) == "object") {
+                return true;
+            }
+        } catch (e) {}
+        return false;
+    }
 
     return global.is = is;
 });
