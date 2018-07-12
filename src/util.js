@@ -3,7 +3,7 @@ function startWith(target, str){
     var reg = new RegExp("^"+str);     
     return reg.test(target);        
 }
-  
+
 //判断字符串是否以某个字符串结尾
 function endWith(target, str){     
     var reg = new RegExp(str+"$");     
@@ -158,6 +158,19 @@ function updateUrlParams(url, obj) {
         }
     }
     return url;
+}
+/**
+ * 修复location.replace兼容问题
+ * @param {String} url 
+ */
+export function locationReplace(url){
+    if(history.replaceState){
+        history.replaceState(null, document.title, url);
+        history.go(0);
+    }
+    else{
+        location.replace(url);
+    }
 }
 
 module.exports = {
