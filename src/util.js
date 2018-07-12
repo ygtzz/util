@@ -2,12 +2,14 @@
 function startWith(target, str){     
     var reg = new RegExp("^"+str);     
     return reg.test(target);        
-}  
+}
+  
 //判断字符串是否以某个字符串结尾
 function endWith(target, str){     
     var reg = new RegExp(str+"$");     
     return reg.test(target);        
 }
+
 /*比较两个array，是否相等*/
 function arrayEqual(arr1, arr2) {
     if (arr1 === arr2) return true;
@@ -17,6 +19,7 @@ function arrayEqual(arr1, arr2) {
     }
     return true;
 }
+
 /*
  * var a = "I Love {0}, and You Love {1},Where are {0}! {4}";
  * String.format(a, "You","Me");
@@ -29,6 +32,7 @@ function formatStr(sSrc) {
             return args[i];
         });
 }
+
 /*  
  * formatMoney(s,type)  
  * 功能：金额按千位逗号分割  
@@ -55,6 +59,7 @@ function formatMoney(s, type) {
     }
     return s;
 }
+
 /*
 * 对Date的扩展，将 Date 转化为指定格式的String 
 * 月(M)、日(d)、小时(h)、分(m)、秒(s)、季度(q) 可以用 1-2 个占位符， 
@@ -86,6 +91,7 @@ function formatDate(oDate, fmt) {
     }
     return fmt;
 }
+
 //过滤html标签，空白，空行
 function filterHtml(str) {
     str = str.replace(/<\/?[^>]*>/g, ''); //去除HTML tag
@@ -95,6 +101,7 @@ function filterHtml(str) {
     str = str.replace(/^\s+/g, ''); //去掉空格，换行符，制表符
     return str;
 }
+
 //get all query string
 function queryStringAll() {
     var reg = /(?:^|&)([^&]+)=([^&]+)(?=&|$)/g,
@@ -106,6 +113,7 @@ function queryStringAll() {
     }
     return args;
 }
+
 //get a query string
 function queryString(key) {
     var reg = new RegExp('(?:^|&)' + key + '=([^&]+)(?=&|$)'),
@@ -113,6 +121,7 @@ function queryString(key) {
     qs = qs.slice(qs.indexOf('?') + 1);
     return (result = qs.match(reg)) == null ? null : result[1];
 }
+
 //判断元素是否在视口内
 function isElementInViewport (el, offset) {
     var h = offset || 20,
@@ -123,33 +132,33 @@ function isElementInViewport (el, offset) {
         right = (box.right <= (window.innerWidth || document.documentElement.clientWidth) + h);
     return (top && left && bottom && right);
 }
-//更新单个url参数，有则修改，无则添加
-function updateUrlParam(url, name, value) {
-    var r = url;
-    if (r != null && r != 'undefined' && r != "") {
-        value = encodeURIComponent(value);
-        var reg = new RegExp("(^|)" + name + "=([^&]*)(|$)");
-        var tmp = name + "=" + value;
-        if (url.match(reg) != null) {
-            r = url.replace(eval(reg), tmp);
-        } else {
-            if (url.match("[\?]")) {
-                r = url + "&" + tmp;
+
+/**
+ * 修改url的参数值，没有该值，就添加
+ * @param {String} url 要修改的url，可以是完整的url，也可以是?后面的参数部分 
+ * @param {Object} obj 要修改的键值对
+ */
+function updateUrlParams(url, obj) {
+    if (url) {
+        for (var p in obj) {
+            var name = p,
+                value = encodeURIComponent(obj[p]),
+                reg = new RegExp("([?&])" + name + "=(?:[^=&?]+)(&|$)"),
+                kv = name + '=' + value;
+            var match = url.match(reg);
+            if (match) {
+                url = url.replace(reg, '$1' + kv + '$2');
             } else {
-                r = url + "?" + tmp;
+                if (url.indexOf('?') > -1) {
+                    url = url + '&' + kv;
+                } else {
+                    url = url + '?' + kv;
+                }
             }
         }
     }
-    return r;
-}
-//更新多个url参数，有则修改，无则添加
-function updateUrlParams(url,obj){
-    for(var p in obj){
-        url = updateUrlParam(url,p,obj[p]);
-    }
     return url;
 }
-
 
 module.exports = {
     formatStr:formatStr,
