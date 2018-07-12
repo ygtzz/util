@@ -1,3 +1,13 @@
+//判断字符串是否以某个字符串开始
+function startWith(target, str){     
+    var reg = new RegExp("^"+str);     
+    return reg.test(target);        
+}  
+//判断字符串是否以某个字符串结尾
+function endWith(target, str){     
+    var reg = new RegExp(str+"$");     
+    return reg.test(target);        
+}
 /*比较两个array，是否相等*/
 function arrayEqual(arr1, arr2) {
     if (arr1 === arr2) return true;
