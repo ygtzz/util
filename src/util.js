@@ -187,18 +187,43 @@ function mid(mid,min,max){
     }
     return Math.min(Math.max(min,mid),max);
 }
-
-module.exports = {
-    formatStr:formatStr,
-    formatMoney:formatMoney,
-    formatDate:formatDate,
-    filterHtml:filterHtml,
-    queryString:queryString,
-    queryStringAll:queryStringAll,
-    isElementInViewport:isElementInViewport,
-    updateUrlParams:updateUrlParams
+/**
+ * 
+ * @param {Date} date1  
+ * @param {Date} date2 
+ */
+function fCompareDate(date1,date2){
+    if(!date1 || !date2){
+        throw new Error('invalid date');
+    }
+    date1 = new Date(date1);
+    date2 = new Date(date2);
+    var year1 = date1.getFullYear(),
+        month1 = parseInt(date1.getMonth()) + 1,
+        dt1 = date1.getDate(),
+        year2 = date2.getFullYear(),
+        month2 = parseInt(date2.getMonth()) + 1,
+        dt2 = date2.getDate();
+    var d1 = +new Date(year1 + '/' + month1 + '/' + dt1 + ' 00:00:00'),
+        d2 = +new Date(year2 + '/' + month2 + '/' + dt2 + ' 00:00:00');
+    if (d1 > d2) {
+        return 1;
+    } else if (d1 < d2) {
+        return -1;
+    } else {
+        return 0;
+    }
 }
-
+/**
+ * 
+ * @param {目标的Id} tplId 
+ * @param {传递给模板的数据} data 
+ * @param {要显示内容的容器的选择器} target 
+ */
+function fRender(tplId,data,target){
+    var html = template(tplId,data);
+    $(target).html(html);
+}
 
 
 
