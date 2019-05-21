@@ -225,7 +225,40 @@ function fRender(tplId,data,target){
     $(target).html(html);
 }
 
+function isPlainObject(obj) {
+    if (typeof obj !== 'object' || obj === null) return false
+  
+    let proto = Object.getPrototypeOf(obj)
+    // 1. edge case Object.create(null)
+    if (proto === null) return true
+    let baseProto = proto
+    
+    while (Object.getPrototypeOf(baseProto) !== null) {
+      baseProto = Object.getPrototypeOf(baseProto)
+    }
+    // 2. 原型链第一个和最后一个比较
+    return proto === baseProto
+}
 
+function isEmptyObject( obj ) {
+    var name;
+    for ( name in obj ) {
+        return false;
+    }
+    return true;
+}
+
+function isNumeric( value ) {
+    //NaN是Number，NaN不等于自己，isNaN这个判断不靠谱，对象，字符串传入isNaN也返回true
+    return Object.prototype.toString.call(value) === '[object Number]' && value != value;
+}
+
+function isObject(value) {
+    return Object(value) === value;
+}
+
+
+  
 
 
 
