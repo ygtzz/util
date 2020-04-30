@@ -102,24 +102,22 @@ function filterHtml(str) {
     return str;
 }
 
-//get all query string
-function queryStringAll() {
-    var reg = /(?:^|&)([^&]+)=([^&]+)(?=&|$)/g,
+function queryStringAll(url) {
+    var reg = /[?&]([^?&=#/]+)=([^?&=#/]+)/g,
         args = {},
-        qs = location.search || location.hash;
-    qs = qs.slice(qs.indexOf('?') + 1);
+        qs = url || location.href;
     while (result = reg.exec(qs)) {
         args[result[1]] = result[2];
     }
     return args;
 }
 
-//get a query string
-function queryString(key) {
-    var reg = new RegExp('(?:^|&)' + key + '=([^&]+)(?=&|$)'),
-        qs = location.search || location.hash;
-    qs = qs.slice(qs.indexOf('?') + 1);
-    return (result = qs.match(reg)) == null ? null : result[1];
+function queryString(key,url) {
+    var reg = new RegExp('[?&]' + key + '=([^?&=#/]+)'),
+        qs = url || location.href;
+        match = reg.exec(qs)
+    
+    return match == null ? null : decodeURIComponent(match[1]);
 }
 
 //判断元素是否在视口内
